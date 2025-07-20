@@ -9,7 +9,7 @@ pipeline {
                     reuseNode true
                 }
             }
-            
+
             steps {
                 sh '''
                     ls -la
@@ -21,6 +21,7 @@ pipeline {
                 '''
             }
         }
+
         stage('Test') {
             agent {
                 docker {
@@ -37,6 +38,12 @@ pipeline {
                 '''
             }
 
+        }
+    }
+    
+    post {
+        always {
+            junit 'test-resutls/junit.xml'
         }
     }
 }
